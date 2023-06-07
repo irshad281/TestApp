@@ -16,7 +16,8 @@ class ViewModel {
     init() {
         jokes.reserveCapacity(10)
         jokes = PersistantManager.fetchJokes()
-        Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in
+        fetchJoke()
+        Timer.scheduledTimer(withTimeInterval: 60.0, repeats: true) { timer in
             self.fetchJoke()
         }
     }

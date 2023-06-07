@@ -9,14 +9,13 @@ import UIKit
 import Combine
 
 final class ViewController: UIViewController {
-
+    private let viewModel: ViewModel
+    private var cancellables = Set<AnyCancellable>()
+    
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
         return tableView
     }()
-    
-    private let viewModel: ViewModel
-    private var cancellables = Set<AnyCancellable>()
     
     required init(with viewModel: ViewModel = .init()) {
         self.viewModel = viewModel
@@ -34,7 +33,11 @@ final class ViewController: UIViewController {
         setupView()
         observePublishers()
     }
+}
 
+// MARK: - Private Helpers
+
+extension ViewController {
     private func setupView() {
         view.addSubview(tableView)
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -59,6 +62,8 @@ final class ViewController: UIViewController {
         tableView.reloadData()
     }
 }
+
+// MARK: - TableView
 
 extension ViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
